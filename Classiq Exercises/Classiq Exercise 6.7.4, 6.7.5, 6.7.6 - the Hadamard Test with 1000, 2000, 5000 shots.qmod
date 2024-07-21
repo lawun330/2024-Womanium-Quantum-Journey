@@ -1,0 +1,19 @@
+// the Hadamard Test
+qfunc main(output expectation_value: qbit) {
+
+  // initiation
+  allocate<1>(expectation_value);
+  psi: qbit[];
+  allocate<4>(psi);
+
+  // end-to-end gate
+  within {
+    H(expectation_value);
+  }
+  // within gate
+  apply {
+    control(expectation_value){
+      qft(psi);
+    }
+  }
+}

@@ -1,0 +1,37 @@
+// a function to produce 000 with specifications
+qfunc allocate_num<num_qubits: int, is_signed: bool, fraction_digits: int>(output out: qnum<num_qubits, is_signed, fraction_digits>);
+
+// a function to produce |-> state for a second input into phase_kickback oracle
+qfunc prepare_minus(output target: qbit) {
+  allocate<1>(target);
+  X(target);
+  H(target);
+}
+
+// a function to mark an element
+qfunc oracle_function(target: qbit, x: qnum) {
+  target ^= x == 0.5; // mark 0.5
+  target ^= x == 0.75; // mark 0.75
+}
+
+// a function to construct an oracle
+qfunc oracle_phase_kickback(x: qnum) {
+  target: qbit;
+  within {
+    prepare_minus(target);
+  } apply {
+    oracle_function(target, x);
+  }
+}
+
+// the main function
+qfunc main(output x: qnum<3, false, 3>) {
+
+  // prepare states
+  allocate_num<3, false, 3>(x); // specifies 3 qubits for 3 fraction-digits with false sign-bit
+  // Example- 100 will be 2^(-1) which is 0.5, 110 will be 2^(-1) + 2^(-2) = 0.75
+  hadamard_transform(x); // put it in superpositions to get 8 states
+
+  // phase kickback
+  oracle_phase_kickback(x);
+}

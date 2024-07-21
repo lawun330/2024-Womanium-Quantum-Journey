@@ -1,0 +1,7 @@
+qfunc main(output test: qbit) {
+  state1: qbit[];
+  state2: qbit[];
+  prepare_state<[0,0.5,0,0.5], 0.01>(state1);
+  prepare_state<[0,1,0,0], 0.01>(state2);
+  swap_test(state1, state2, test);
+}
