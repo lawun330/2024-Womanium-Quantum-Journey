@@ -4,7 +4,7 @@ This repository is a reflection of my learning journey as it contains correct so
 
 You may need to install these packages in your environment:
 - qiskit
-```
+```console
 pip install qiskit
 pip install qiskit-aer
 pip install qiskit[visualization]
@@ -18,7 +18,7 @@ pip install cirq
 pip install dwave-ocean-sdk
 ```
 - classiq sdk
-```
+```console
 pip install classiq
 ```
 - pennylane
